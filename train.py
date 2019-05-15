@@ -14,7 +14,7 @@ epochs = 6
 
 
 # input image dimensions 96 or 48
-size = 96
+size = 128
 img_rows, img_cols = size, size
 
 # change it if you need 6 or 7 or 8 (generally)
@@ -25,8 +25,8 @@ data = np.load('data.npy');
 train = data[:3000,:]
 test  = data[3000:,:]
 
-X_train = train[:,:9216].reshape(train.shape[0],96,96,1)
-X_test = test[:,:9216].reshape(test.shape[0],96,96,1)
+X_train = train[:,:9216].reshape(train.shape[0],128,128,1)
+X_test = test[:,:9216].reshape(test.shape[0],128,128,1)
 Y_train = train[:,9216:].flatten()
 Y_test  = test[:,9216:].flatten()
 
@@ -57,7 +57,7 @@ model.add(Conv2D(filters=128, kernel_size=(5, 5), strides=(1, 1), activation='re
 model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2), name='pool2'))
 model.add(ZeroPadding2D(padding=(2, 2), name='pad3'))
 model.add(Conv2D(filters=256, kernel_size=(5, 5), strides=(1, 1), activation='relu', use_bias=False, name='conv3'))
-model.add(MaxPooling2D(pool_size=(12, 12), strides=(12, 12), name='pool3'))
+model.add(MaxPooling2D(pool_size=(12, 12), strides=(16, 16), name='pool3'))
 model.add(Flatten())
 model.add(Dense(300, activation='relu', name='fc4'))
 model.add(Dropout(0.5))
